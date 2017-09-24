@@ -57,7 +57,7 @@ optimizer = tf.train.GradientDescentOptimizer(learning_rate=learning_rate).minim
 
 # Calculate accuracy
 correct_prediction = tf.equal (tf.argmax(logits,1),tf.argmax(labels,1))
-accuracy=tf.reduce_mean(correct_prediction)
+accuracy=tf.reduce_mean(tf.cast(correct_prediction,float32))
 
 init = tf.global_variables_initializer()
 
