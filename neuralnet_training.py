@@ -57,3 +57,26 @@ optimizer = tf.train.GradientDescentOptimizer(learning_rate=learning_rate).minim
 
 # Calculate accuracy
 correct_prediction = tf.equal (tf.argmax(logits,1),tf.argmax(labels,1))
+accuracy=tf.reduce_mean(correct_prediction)
+
+init = tf.global_variables_initializer()
+
+batch_size = 128
+epochs = 10
+learn_rate = 0.001
+
+train_batches = batches(batch_size, train_features, train_labels)
+
+with tf.Session() as sess:
+
+	sess.run(init)
+
+	for epoch_i in range(epochs):
+		for batch_features, batch_labels in train_batches:
+			sess.run(optimizer,feed_dict={learning_rate: learn_rate, features: batch_features, labels: batch_labels})
+
+
+	test_accuracy = sess.run(accuracy, feed_dict={features: test_features, labels: test_labels})
+
+
+
